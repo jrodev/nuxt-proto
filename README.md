@@ -2,6 +2,9 @@
 
 ## Build Setup
 
+# Creando el proyecto
+$ npx create-nuxt-app <project-name>
+
 ```bash
 # install dependencies
 $ npm install

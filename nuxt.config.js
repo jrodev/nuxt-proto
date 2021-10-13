@@ -19,6 +19,15 @@ export default {
     ]
   },
 
+  // Middleware para Ruteo BackEnd
+  serverMiddleware: [
+    //{path: '/api',  handler: '~/api/index.js'},
+    "~/middleware/server/validateSession"
+  ],
+
+  // MIddleware para Ruteo FrontEnd
+  router: { middleware: ["client/validateSession"] },
+
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
   ],
@@ -71,6 +80,7 @@ export default {
   },
 
   env: {
+    APP_TITLE: process.env.APP_TITLE,
     BACK_URL: process.env.BACK_URL,
     FRONT_URL: process.env.FRONT_URL,
     BACK_URL_API: process.env.BACK_URL_API

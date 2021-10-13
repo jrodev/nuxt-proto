@@ -29,21 +29,29 @@
       },
 
       methods: {
+
+        async postSignIn (user:String, pass:String) 
+        {
+          console.log("login->BACK_URL_API", process.env.BACK_URL_API)
+
+          let url  = process.env.BACK_URL_API + 'auth/signin'
+          let data = { email:user, password:pass }
+          let cnf  = { headers: {'Content-Type':'application/json'} }
+
+          const rsp = await this.$axios.$post(url, data, cnf)
+
+          return rsp
+        },
+
         async login () {
           try {
-            let oLogin = { email:this.user, password:this.password };
-            console.log("login->BACK_URL_API", process.env.BACK_URL_API);
-            console.log("login->oLogin", oLogin);
-            
-            const oResp = await this.$axios.$post(
-              process.env.BACK_URL_API + 'auth/signin', 
-              oLogin,
-              { headers: { 'Content-Type': 'application/json' } }
-            );
+            const oResp = await this.postSignIn(this.user, this.password)
 
             if(oResp.hasOwnProperty("token")) {
-              sessionStorage.setItem('token', oResp.token);
-              location.href = process.env.FRONT_URL+"admin";
+              sessionStorage.setItem('token', oResp.token)
+
+              // Redireccionando al dashboard admin
+              location.href = process.env.FRONT_URL+"admin"
             } 
             else {
               console.log("login->oResp", oResp);
